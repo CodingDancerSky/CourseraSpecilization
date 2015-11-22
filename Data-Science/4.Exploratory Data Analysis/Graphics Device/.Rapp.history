@@ -1,0 +1,114 @@
+setwd("Desktop/Course/12.Big Data/Data Science/Exploratory Data Analysis/Graphics Device")
+setwd("Desktop/Course/12.Big Data/Data Science/Exploratory Data Analysis")
+getwd()
+## Get the dataset#
+data <- read.csv("household_power_consumption.txt", header = T, sep = ';', na.strings = "?",#
+                 nrows = 2075259, check.names = F, stringsAsFactors = F, #
+                 comment.char = "", quote = '\"')#
+#
+data$Date <- as.Date(data$Date, format = "%d/%m/%Y")#
+#
+selecteddata <- subset(data, subset = (Date >= "2007-02-01" & Date <= "2007-02-02"))#
+## Convert the dates#
+#
+datetime <- paste(as.Date(selecteddata$Date), selecteddata$Time)#
+#
+selecteddata$Datetime <- as.POSIXct(datetime)#
+## Plot 1#
+#
+hist(selecteddata$Global_active_power, main = "Global Active Power", #
+#
+     xlab = "Global Active Power (kilowatts)", ylab = "Frequency", col = "Red")#
+## Save to file#
+dev.copy(png, file="plot1.png", height = 480, width = 480)#
+dev.off()
+getwd()
+data <- read.csv("household_power_consumption.txt", header = TRUE, sep = ';',#
+                 check.names = F, stringsAsFactors = F, quote = '\"')
+data$Date <- as.Date(data$Date, format = "%d/%m/%Y")
+date <- data[data$Date %in% c("2007-02-01", "2007-02-02")]
+head(date)
+data
+getwd()
+data <- read.csv("household_power_consumption.txt", header = T, sep = ';', na.strings = "?",#
+                 nrows = 2075259, check.names = F, stringsAsFactors = F, #
+                 comment.char = "", quote = '\"')
+data$Date <- as.Date(data$Date, format = "%d/%m/%Y")
+subdata <- subset(data, subset = (Date >= "2007-02-01" & Date <= "2007-02-02"))
+head(subdata)
+datetime <- paste(as.Date(subdata$Date), subdata$Time)#
+subdata$Datetime <- as.POSIXct(datetime)
+hist(selecteddata$Global_active_power, main = "Global Active Power", #
+     xlab = "Global Active Power (kilowatts)", ylab = "Frequency", col = "Red")
+hist(subdata$Global_active_power, main = "Global Active Power", #
+     xlab = "Global Active Power (kilowatts)", ylab = "Frequency", col = "Red")
+dev.copy(png, file = "plot1.png", height = 480, width = 480)#
+dev.off()
+hist(subdata$Global_active_power, main = "Global Active Power", #
+     xlab = "Global Active Power (kilowatts)", ylab = "Frequency", col = "Red")
+dev.copy(png, file = "plot1.png", height = 480, width = 480)#
+dev.off()
+plot(subdata $Global_active_power ~ subdata $Datetime, type = "l",#
+     ylab = "Global Active Power (kilowatts)", xlab = "")
+dev.copy(png, file = "plot2.png", height = 480, width = 480)#
+dev.off()
+with(data, {#
+    plot(Sub_metering_1 ~ Datetime, type = "l", #
+    ylab = "Global Active Power (kilowatts)", xlab = "")#
+    lines(Sub_metering_2 ~ Datetime, col = 'Red')#
+    lines(Sub_metering_3 ~ Datetime, col = 'Blue')#
+})#
+legend("topright", col = c("black", "red", "blue"), lty = 1, lwd = 2, #
+       legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"))
+with(subdata, {#
+    plot(Sub_metering_1 ~ Datetime, type = "l", #
+    ylab = "Global Active Power (kilowatts)", xlab = "")#
+    lines(Sub_metering_2 ~ Datetime, col = 'Red')#
+    lines(Sub_metering_3 ~ Datetime, col = 'Blue')#
+})#
+legend("topright", col = c("black", "red", "blue"), lty = 1, lwd = 2, #
+       legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"))
+dev.copy(png, file = "plot2.png", height = 480, width = 480)#
+dev.off()
+dev.copy(png, file = "plot3.png", height = 480, width = 480)#
+dev.off()
+plot(subdata $Global_active_power ~ subdata $Datetime, type = "l",#
+     ylab = "Global Active Power (kilowatts)", xlab = "")
+dev.copy(png, file = "plot2.png", height = 480, width = 480)#
+dev.off()
+par(mfrow = c(2, 2), mar = c(4, 4, 2, 1), oma = c(0, 0, 2, 0))#
+with(subdata, {#
+     plot(Global_active_power ~ Datetime, type = "l", #
+     	  ylab = "Global Active Power", xlab = "")#
+     plot(Voltage ~ Datetime, type = "l", #
+          ylab = "Voltage", xlab = "datetime")#
+     plot(Sub_metering_1 ~ Datetime, type = "l", #
+          ylab = "Energy sub metering", xlab = "")#
+     lines(Sub_metering_2 ~ Datetime, col = 'Red')#
+     lines(Sub_metering_3 ~ Datetime, col = 'Blue')#
+     legend("topright", col = c("black", "red", "blue"), #
+            lty = 1, lwd = 2, bty = "n",#
+     legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"))#
+     plot(Global_reactive_power ~ Datetime, type = "l", #
+          ylab = "Global_rective_power", xlab = "datetime")#
+})
+dev.copy(png, file = "plot4.png", height = 480, width = 480)#
+dev.off()
+par(mfrow = c(2, 2), mar = c(4, 4, 2, 1), oma = c(0, 0, 2, 0))#
+with(subdata, {#
+     plot(Global_active_power ~ Datetime, type = "l", #
+     	  ylab = "Global Active Power", xlab = "")#
+     plot(Voltage ~ Datetime, type = "l", #
+          ylab = "Voltage", xlab = "datetime")#
+     plot(Sub_metering_1 ~ Datetime, type = "l", #
+          ylab = "Energy sub metering", xlab = "")#
+     lines(Sub_metering_2 ~ Datetime, col = 'Red')#
+     lines(Sub_metering_3 ~ Datetime, col = 'Blue')#
+     legend("topright", col = c("black", "red", "blue"), #
+            lty = 1, lwd = 2, bty = "n",#
+     legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"))#
+     plot(Global_reactive_power ~ Datetime, type = "l", #
+          ylab = "Global_rective_power", xlab = "datetime")#
+})
+dev.copy(png, file = "plot4.png", height = 480, width = 480)#
+dev.off()
