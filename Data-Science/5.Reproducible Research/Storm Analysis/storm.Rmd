@@ -1,0 +1,98 @@
+# Storm Analysis
+
+Xiangzhu Long
+
+## Synopsis
+
+1.Observe the data and prepocess it to get the clean data;
+
+2.Exlpore the impact of different estimators on the population health, find that **tornados**, are most harmful.
+
+3.Exlpore the impact of different estimators on the economy , find that **floods** are most harmful.
+
+
+## Details
+
+##  Analysis
+### Loading and preprocessing the data
+
+```{r, results = 'asis', echo = TRUE, cache = TRUE}
+# Load the data 
+data_raw <- read.csv("data/repdata-data-StormData.csv", stringsAsFactors = FALSE)
+
+# Observe tha raw data
+d <- dim(data_raw)
+```
+This data set contains `r d[1]` observations and `r d[2]` features.
+
+```{r, results = 'asis', echo = TRUE}
+head(data_raw, n = 2)
+
+# Process the data
+data <- data_raw[,c('EVTYPE','FATALITIES','INJURIES', 'PROPDMG', 'PROPDMGEXP', 'CROPDMG', 'CROPDMGEXP')]
+
+# Convert the damage degree to numeric value
+data$PROPDMGNUM = 0
+data[data$PROPDMGEXP == "H", ]$PROPDMGNUM = data[data$PROPDMGEXP == "H", ]$PROPDMG * 10^2
+data[data$PROPDMGEXP == "K", ]$PROPDMGNUM = data[data$PROPDMGEXP == "K", ]$PROPDMG * 10^3
+data[data$PROPDMGEXP == "M", ]$PROPDMGNUM = data[data$PROPDMGEXP == "M", ]$PROPDMG * 10^6
+data[data$PROPDMGEXP == "B", ]$PROPDMGNUM = data[data$PROPDMGEXP == "B", ]$PROPDMG * 10^9
+
+data$CROPDMGNUM = 0
+data[data$CROPDMGEXP == "H", ]$CROPDMGNUM = data[data$CROPDMGEXP == "H", ]$CROPDMG * 10^2
+data[data$CROPDMGEXP == "K", ]$CROPDMGNUM = data[data$CROPDMGEXP == "K", ]$CROPDMG * 10^3 
+data[data$CROPDMGEXP == "M", ]$CROPDMGNUM = data[data$CROPDMGEXP == "M", ]$CROPDMG * 10^6
+data[data$CROPDMGEXP == "B", ]$CROPDMGNUM = data[data$CROPDMGEXP == "B", ]$CROPDMG * 10^9
+```
+
+### Results
+```{r, results = 'hide', echo = TRUE}
+library(ggplot2)
+```
+
+```{r, results = 'asis', echo = TRUE}
+# Plot the number of fatalities of different evaluator.
+evaluator <- aggregate(FATALITIES ~ EVTYPE, data = data, sum)
+evaluator <- evaluator[order(-evaluator$FATALITIES), ][1:10, ]
+evaluator$EVTYPE <- factor(evaluator$EVTYPE, levels = evaluator$EVTYPE)
+
+ggplot(evaluator, aes(x = EVTYPE, y = FATALITIES)) + 
+  geom_bar(stat = "identity", fill = "red", las = 3) + 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) + 
+  xlab("Evaluator") + ylab("# of Fatalities") +
+  ggtitle("Number of fatalities of different evaluator")
+```
+The figure shows that **Tornado**, **Excessive heat** and **Flash flood** cause the most serious fatalities, while **Avalanche**, **High wind** and **Rip current* have the less impact.
+
+
+```{r, results = 'asis', echo = TRUE}
+# Plot the number of injuries of different evaluator.
+injuries <- aggregate(INJURIES ~ EVTYPE, data = data, sum)
+injuries <- injuries[order(-injuries$INJURIES), ][1:10, ]
+injuries$EVTYPE <- factor(injuries$EVTYPE, levels = injuries$EVTYPE)
+
+ggplot(injuries, aes(x = EVTYPE, y = INJURIES)) + 
+  geom_bar(stat = "identity", fill = "red", las = 3) + 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) + 
+  xlab("Evaluator") + ylab("# of Injuries") +
+  ggtitle("Number of injuries of different evaluator")
+```
+The figure shows that **Tornado*, **Tstm wind** and **Flood** have the most harmful influence on the population health, while **Hail**, **Thunderstorm wind** and **Flash flood** have the less impact.
+
+
+```{r, results = 'asis', echo = TRUE}
+# Plot the damage degree with the most harmful evaluators.
+damages <- aggregate(PROPDMGNUM + CROPDMGNUM ~ EVTYPE,
+                     data = data, sum)
+names(damages) = c("EVTYPE", "DAMAGES")
+damages <- damages[order(-damages$DAMAGES), ][1:10, ]
+damages$EVTYPE <- factor(damages$EVTYPE, levels = damages$EVTYPE)
+
+ggplot(damages, aes(x = EVTYPE, y = DAMAGES)) + 
+  geom_bar(stat = "identity", fill = "red", las = 3) + 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) + 
+  xlab("Evaluator") + ylab("Damage Degree") +
+  ggtitle("Property & Crop Damages of the most Harmful Evaluators")
+```
+The figure shows that **Fload**, **Hurricanetyphoon** and **Tornado** have the most harmful influence on the economics, while **Ice storml**, **River flood** and **Hurricane** have the less impact.
+
