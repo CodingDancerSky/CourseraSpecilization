@@ -1,0 +1,43 @@
+# Mutiple Machine Learning Algorithms
+Xiangzhu Long
+
+## Background
+
+Using devices such as Jawbone Up, Nike FuelBand, and Fitbit it is now possible to collect a large amount of data about personal activity relatively inexpensively. These type of devices are part of the quantified self movement – a group of enthusiasts who take measurements about themselves regularly to improve their health, to find patterns in their behavior, or because they are tech geeks. One thing that people regularly do is quantify how much of a particular activity they do, but they rarely quantify how well they do it. In this project, your goal will be to use data from accelerometers on the belt, forearm, arm, and dumbell of 6 participants. They were asked to perform barbell lifts correctly and incorrectly in 5 different ways. More information is available from the [website](http://groupware.les.inf.puc-rio.br/har) (see the section on the Weight Lifting Exercise Dataset). 
+
+## Preprocessing Data
+```{r}
+trainingset <- read.csv("training.csv", na.strings=c("NA","#DIV/0!", ""))
+testingset <- read.csv('testing.csv', na.strings=c("NA","#DIV/0!", ""))
+
+# Delete columns with all missing values
+trainingset<-trainingset[,colSums(is.na(trainingset)) == 0]
+testingset <-testingset[,colSums(is.na(testingset)) == 0]
+
+library(caret)
+subsamples <- createDataPartition(y=trainingset$classe, p=0.75, list=FALSE)
+subTraining <- trainingset[subsamples, ] 
+subTesting <- trainingset[-subsamples, ]
+
+plot(subTraining$classe, col="blue", main="5 Levels of the variable class of the subTraining dataset", xlab="class levels", ylab="Frequency")
+
+
+library(rpart)
+model1 <- rpart(classe ~ ., data=subTraining, method="class")
+
+# Predicting:
+prediction1 <- predict(model1, subTesting, type = "class")
+confusionMatrix(prediction1, subTesting$classe)
+
+library(randomForest)
+
+model2 <- randomForest(classe ~. , data=subTraining, method="class")
+
+# Predicting:
+prediction2 <- predict(model2, subTesting, type = "class")
+confusionMatrix(prediction2, subTesting$classe)
+```
+Random Forest algorithm performed better than Decision Trees.
+
+
+
