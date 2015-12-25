@@ -1,0 +1,52 @@
+# Analysis on Inferential Data
+Xiangzhu Long
+
+
+## Introduction
+We're going to analyze the ToothGrowth data in the R datasets package and make a basic summary of the data, like using confidence intervals and hypothesis tests to compare tooth growth by supp and dose. 
+
+
+## Stimulation
+```{r}
+# Load dependencies
+library(ggplot2)
+set.seed(7)
+
+# Load the ToothGrowth data
+data(ToothGrowth)
+head(ToothGrowth)
+```
+
+
+## Analysis
+```{r}
+# Comparing the data sets
+ggplot(ToothGrowth, aes(x = len, fill = supp)) + 
+  facet_wrap(~dose) + scale_fill_brewer(palette = 'Set1') + 
+  xlab('tooth length') + ggtitle('Distribution of Guinea_pig Tooth Lengths') + 
+  geom_histogram()
+
+summary(ToothGrowth)
+
+# compare tooth growth by supp and dose.
+supp.t1 <- t.test(len~supp, paired=F, var.equal=T, data=ToothGrowth)
+supp.t2 <- t.test(len~supp, paired=F, var.equal=F, data=ToothGrowth)
+supp.result <- data.frame("p-value"=c(supp.t1$p.value, supp.t2$p.value),
+                          "Conf-Low"=c(supp.t1$conf[1],supp.t2$conf[1]),
+                          "Conf-High"=c(supp.t1$conf[2],supp.t2$conf[2]),
+                          row.names=c("Equal Var","Unequal Var"))
+supp.result
+```
+
+
+## Results
+Based on the sample data provided:
+
+1.At lower dosages (.5 Mg - 1 Mg), orange juice provides more tooth growth than ascorbic acid.
+
+2.At the higher dosage (2 Mg), the rate of tooth growth is not statistically different between supplement methods.
+
+3.Regardless of the supplement method, dosage is a key factor in tooth growth.
+
+
+

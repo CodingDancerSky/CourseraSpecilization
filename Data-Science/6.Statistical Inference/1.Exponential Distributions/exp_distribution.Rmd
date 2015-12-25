@@ -1,0 +1,96 @@
+# Exponential Distributions
+Xiangzhu Long
+
+## Introduction
+Investigate the exponential distribution in R and compare it with the Central Limit Theorem. Note that you will need to do a thousand simulations.
+
+Illustrate via simulation and associated explanatory text the properties of the distribution of the mean of 40 exponentials.  You should
+
+1.Show the sample mean and compare it to the theoretical mean of the distribution.
+
+2.Show how variable the sample is (via variance) and compare it to the theoretical variance of the distribution.
+
+3.Show that the distribution is approximately normal.
+
+## Simulation
+```{r results='hide'}
+# load the packages knitr and ggplot2
+library(knitr) 
+library(ggplot2)
+```
+
+```{r}
+# Set the global options
+lambda = 0.2         
+n = 40  # number of exponential random variables
+nsims = 1: 10000  # number of simulated averages
+set.seed(901)
+means <- data.frame( x=sapply( nsims,
+                               function(x) {
+                                 mean(rexp(n,lambda) ) } ) )
+head(means)
+```
+
+
+```{r}
+# Analysis
+
+# Center of the distribution of sample means
+mean <- round(mean(means$x), 3)
+
+# Standard deviation of sample means
+sd <- round(sd(means$x), 3)
+
+# Expected standard deviation
+E <- round((1/lambda)/(sqrt(40)), 3) 
+
+# Variance of our simulations
+var <- round(var(means$x), 3)
+
+# Expected variance
+E2 <- round(E ^ 2, 3)
+
+# Center of the distribution of sample means
+hmeans <- round(rowMeans(means), 3)
+```
+
+
+## Result
+
+### Show where the distribution is centered at and compare it to the theoretical center of the distribution.
+
+Answer: The center of the distribution: `r mean`, is close to the expected center: λ^−1 = 5, and the variance of sample means is `r var` where the theoretical variance of the distribution is ( σ^2 )/n=1/(λ^2 * n)=1/(0.04×40) = 0.625.
+
+```{r}
+hist(hmeans, col = 'green', breaks = 40, 
+     prob = TRUE, main = "Distribution of the Sample Averages",
+     xlab = "")
+    
+# density of the sample averages
+lines( density(hmeans) )
+
+# theoretical center of distribution    
+abline(v = 1/lambda, col = "red")
+
+# theoretical density of the averages of samples
+xfit <- seq(min(hmeans), max(hmeans), length = 100)
+yfit <- dnorm(xfit, mean = 1/lambda, sd = (1/lambda/sqrt(n)))
+lines(xfit, yfit, pch = 19, col = "yellow", lty=2)
+ 
+legend('topright', c("simulation", "theoretical"), 
+       lty = c(1,2), col = c("black", "yellow"))
+```
+
+### Show how variable it is and compare it to the theoretical variance of the distribution.
+
+Answer: The standard deviation of `r sd` is also close to the expected standard deviation, which is `r E`. Expected standard deviation using CLE.
+
+### Show that the distribution is approximately normal.
+```{r}
+qqnorm(hmeans, col = I('red'))
+qqline(hmeans, col = I('blue'))
+legend('topleft', c("norm", "line"),
+       col = c("red", "blue"))
+```
+
+
