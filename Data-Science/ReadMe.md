@@ -1,7 +1,7 @@
 ## Coursera Data Science Specialization ##
 ### Xiangzhu Long ###
 
-I was working on this Specialization from Nov 2014 to August 2015 without certificate
+I had been working on this Specialization from Nov 2014 to September 2015 without certificates.
 
 But I found it will help me to apply for a full-time job if I could earn the certificates. Thus, I finished the certificates based on my previous work.
 
