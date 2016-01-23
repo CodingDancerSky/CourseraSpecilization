@@ -1,22 +1,26 @@
 ## Coursera Data Science Specialization ##
 ### Xiangzhu Long ###
 
-** Certificates: **
+I was working on this Specialization from Nov 2014 to August 2015 without certificate
 
-[1.The Data Scientist's Toolbox](https://www.coursera.org/account/accomplishments/records/cd7vH6bxJAc7cu5N) 
+But I found it will help me to apply for a full-time job if I could earn the certificates. Thus, I finished the certificates based on my previous work.
 
-[2.R language](https://www.coursera.org/account/accomplishments/records/L4zvTJu3s2hh7X5R)
+** Certificates **
 
-[3.Getting and Cleaning Data](https://www.coursera.org/account/accomplishments/records/24P7DMJLUhYzmNgD)
+[1.The Data Scientist's Toolbox](https://www.coursera.org/account/accomplishments/certificate/HM4SNX6DK6) 
 
-[4.Exploratory Data Analysis](https://www.coursera.org/account/accomplishments/records/ukqcHDdukzyhBSqH)
+[2.R language](https://www.coursera.org/account/accomplishments/certificate/LF6XP8SG4T)
 
-[5.Reproducible Research](https://www.coursera.org/account/accomplishments/records/ZUVa7KMz6sSE9BHT)
+[3.Getting and Cleaning Data](https://www.coursera.org/account/accomplishments/certificate/Y27T9CFBSE)
 
-[6.Statistical Inference](https://www.coursera.org/account/accomplishments/records/darrfuQDZDXQkS2z)
+[4.Exploratory Data Analysis](https://www.coursera.org/account/accomplishments/certificate/GTFHN4NZPA)
 
-[7.Regression Model](https://www.coursera.org/account/accomplishments/records/FW4LHgnbmX6efLBy)
+[5.Reproducible Research](https://www.coursera.org/account/accomplishments/certificate/BTZMZA89X5)
 
-[8.Practical Machine Learning](https://www.coursera.org/account/accomplishments/records/4UQYLjPvZ5kPMrcV)
+[6.Statistical Inference](https://www.coursera.org/account/accomplishments/certificate/GB3349LWBR)
 
-[9.Developing Data Product](https://www.coursera.org/account/accomplishments/records/fJcWWAhpQy2QKTEF)
+[7.Regression Model](https://www.coursera.org/account/accomplishments/certificate/DSFCT7JYH9)
+
+[8.Practical Machine Learning](https://www.coursera.org/account/accomplishments/certificate/NF773D6WYH)
+
+[9.Developing Data Product](https://www.coursera.org/account/accomplishments/certificate/VXMDRFQ5ZA)
