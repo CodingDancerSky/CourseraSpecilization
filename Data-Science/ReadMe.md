@@ -1,4 +1,7 @@
 ## Coursera Data Science Specialization ##
+
+This Specialization  covers the concepts and tools you'll need throughout the entire data science pipeline, from asking the right kinds of questions to making inferences and publishing results. 
+
 ### Xiangzhu Long ###
 
 I had been working on this Specialization from Nov 2014 to September 2015 without certificates.
