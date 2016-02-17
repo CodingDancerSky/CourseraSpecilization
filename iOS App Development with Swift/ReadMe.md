@@ -1,4 +1,7 @@
 ## Coursera iOS App Development with Swift Specialization ##
+
+Master Swift, design elegant interactions, and create a fully functioning iOS app.
+
 ### Xiangzhu Long ###
 
 ** Certificates **
